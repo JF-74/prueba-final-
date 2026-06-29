@@ -4,6 +4,7 @@ services:
     volumes:
       - .:/workspace
     working_dir: /workspace
+    command: python main.py
 
   prefect-server:
     build: .
@@ -24,22 +25,12 @@ services:
     working_dir: /workspace
     ports:
       - "8050:8050"
+    environment:
+      - DB_PATH=/workspace/ecommerce_analytics.db
+    depends_on:
+      - pipeline
     command: python dashboard/app.py
 
-  jupyter:
-    build: .
-    volumes:
-      - .:/workspace
-    working_dir: /workspace
-    ports:
-      - "8888:8888"
-    command: >
-      jupyter lab
-      --ip=0.0.0.0
-      --port=8888
-      --no-browser
-      --allow-root
-      --NotebookApp.token=''
 
 volumes:
   prefect-data:
