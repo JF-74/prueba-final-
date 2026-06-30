@@ -25,7 +25,18 @@ Python Ingest -> DuckDB (raw) -> dbt(tranforma -> DuckDB(marts) -> Dash (UI)
 
 ## ejecucion 
 para permitir que el pipeline se ejecute de manera completa
-`docker-compose run --rm pipeline python src/ingest.py` esto permite que al ocupar el src/ingest.py descargue la base de datos de
-`docker-compose run --rm pipeline sh -c "cd dbt && dbt run` esto permite cargar el dbt y hacer un dbt run para este pipeline
-`docker-compose up -d dashboard` esta parte permite que levante el dashboard 
+
+##Ingesta de datos
+`docker-compose run --rm pipeline python src/ingest.py` 
+esto permite que al ocupar el src/ingest.py descargue la base de datos 
+
+##Transformación
+`docker-compose run --rm pipeline sh -c "cd dbt && dbt run` 
+esto permite cargar el dbt y hacer un dbt run para este pipeline
+
+
+##Dashboard
+`docker-compose up -d dashboard` 
+esta parte permite que levante el dashboard 
+
 para acceder al dashboard en `http://localhost:8050`
