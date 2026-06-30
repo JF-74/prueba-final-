@@ -6,7 +6,7 @@ services:
     working_dir: /workspace
     environment:
       - DBT_PROFILES_DIR=/workspace/dbt
-    command: python src/ingest.py
+    command: python src/flow.py
 
   prefect-server:
     build: .
