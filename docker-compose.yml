@@ -4,7 +4,9 @@ services:
     volumes:
       - .:/workspace
     working_dir: /workspace
-    command: python main.py
+    environment:
+      - DBT_PROFILES_DIR=/workspace/dbt
+    command: python src/ingest.py
 
   prefect-server:
     build: .

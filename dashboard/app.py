@@ -1,38 +1,27 @@
-import dash
-from dash import dcc, html
-import plotly.express as px
+from dash import Dash, html, dash_table
 import duckdb
+import os
 
-def get_data():
-    con = duckdb.connect('/workspace/data/ecommerce_analytics.dbdb', read_only=True)
-    df = con.execute("SELECT * FROM fct_orders").df()
+app = Dash(__name__)
+
+db_path = ('/workspace/data/ecommerce_analytics.db')
+
+try:
+    con = duckdb.connect(db_path, read_only=True, config={'access_mode': 'read_only'})
+    df = con.execute("SELECT * FROM main.fct_sales").df()
     con.close()
-    return df
 
-app = dash.Dash(__name__)
+    table = dash_table.DataTable(
+        data=df.to_dict('records'),
+        columns=[{"name": i, "id": i} for i in df.columns]
+    )
+except Exception as e:
+    table = html.Div(f"Error cargando datos: {e}")
 
 app.layout = html.Div([
-    html.H1("Dashboard Ejecutivo: Ecomerce analytics"),
-    dcc.Dropdown(
-        id='region-dropdown',
-        options=[{'label': r, 'value': r} for r in sorted(get_data()['region'].unique())],
-        placeholder="Seleccione una región..."
-    ),
-    dcc.Graph(id='ventas-graph')
+    html.H1("Dashboard de Ecommerce"),
+    table
 ])
 
-@app.callback(
-    Output('ventas-graph', 'figure'),
-    [Input('region-dropdown', 'value')]
-)
-def update_graph(selected_region):
-    if not selected_region:
-        return px.bar(title="Seleccione una región para ver datos")
-    df = get_data()
-    filtered_df = df[df['region_clean'] == selected_region]
-    fig = px.bar(filtered_df, x='product_category', y='sales',
-                 title=f"Ventas en {selected_region}")
-    return fig
-
-if __name__ == '__main__':
-    app.run_server(host='0.0.0.0', port=8050)
+if __name__ == "__main__":
+    app.run_server(host='0.0.0.0', port=8050, debug=False)

@@ -1,4 +1,4 @@
-# prueba-final-
+#Proyecto final: Pipeline de Datos - Ecommerce Analytics
 
 ## Integrantes
 - Jose Aravena
@@ -20,6 +20,12 @@ este proyecto cuanta con la implememtacion de Data Lakehouse
 - *medidas* `sales`,`delivery_days_diff`,`orden_count`. estos son las valores del rendimiento de los numeros cuantificados
 - *tabla de hechos*`fct_ordens`. como esta es la tabla que vincula las dimenciones y almacenar las medidas, lo que permite el rendimiento del analisis de logistica
 
+#flujos de datos
+Python Ingest -> DuckDB (raw) -> dbt(tranforma -> DuckDB(marts) -> Dash (UI)
+
 ## ejecucion 
 para permitir que el pipeline se ejecute de manera completa
-`docker compose up`
+`docker-compose run --rm pipeline python src/ingest.py` esto permite que al ocupar el src/ingest.py descargue la base de datos de
+`docker-compose run --rm pipeline sh -c "cd dbt && dbt run` esto permite cargar el dbt y hacer un dbt run para este pipeline
+`docker-compose up -d dashboard` esta parte permite que levante el dashboard 
+para acceder al dashboard en `http://localhost:8050`

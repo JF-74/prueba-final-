@@ -1,0 +1,24 @@
+import pandas as pd
+import os
+import duckdb
+
+RAW_DATA_PATH = "data/raw"
+DB_PATH = "data/ecommerce_analytics.db"
+CSV_PATH = os.path.join(RAW_DATA_PATH, "orders.csv")
+
+def procesar_datos():
+    os.makedirs(RAW_DATA_PATH, exist_ok=True)
+    if not os.path.exists(CSV_PATH):
+        print(f"Descargando datos...")
+        url = 
+        df = pd.read_csv(url)
+        df.to_csv(CSV_PATH, index=False)
+
+    print("Cargando datos en DuckDB...")
+    con = duckdb.connect(DB_PATH)
+    con.execute(f"CREATE OR REPLACE TABLE orders AS SELECT * FROM read_csv_auto('{CSV_PATH}')")
+    con.close()
+    print("Tabla 'orders' creada exitosamente en DuckDB.")
+
+if __name__ == "__main__":
+    procesar_datos()
