@@ -24,7 +24,8 @@ este proyecto cuanta con la implememtacion de Data Lakehouse
 Python Ingest -> DuckDB (raw) -> dbt(tranforma -> DuckDB(marts) -> Dash (UI)
 
 ## ejecucion 
-para permitir que el pipeline se ejecute de manera completa
+`docker-compose up -d`
+para permitir que el pipeline se ejecute de manera completa con los servicios
 
 ##Ingesta de datos
 `docker-compose run --rm pipeline python src/ingest.py` 
