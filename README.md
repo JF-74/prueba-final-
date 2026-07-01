@@ -32,7 +32,7 @@ para permitir que el pipeline se ejecute de manera completa con los servicios
 esto permite que al ocupar el src/ingest.py descargue la base de datos 
 
 ##Transformación
-`docker-compose run --rm pipeline sh -c "cd dbt && dbt run` 
+`docker-compose run --rm pipeline sh -c "cd dbt && dbt run"` 
 esto permite cargar el dbt y hacer un dbt run para este pipeline
 
 
