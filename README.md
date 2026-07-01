@@ -21,7 +21,7 @@ este proyecto cuanta con la implememtacion de Data Lakehouse
 - *tabla de hechos*`fct_ordens`. como esta es la tabla que vincula las dimenciones y almacenar las medidas, lo que permite el rendimiento del analisis de logistica
 
 #flujos de datos
-Python Ingest -> DuckDB (raw) -> dbt(tranforma -> DuckDB(marts) -> Dash (UI)
+Python Ingest -> DuckDB (raw) -> dbt(tranforma) -> DuckDB(marts) -> Dash (UI)
 
 ## ejecucion 
 `docker-compose up -d`
@@ -32,7 +32,7 @@ para permitir que el pipeline se ejecute de manera completa con los servicios
 esto permite que al ocupar el src/ingest.py descargue la base de datos 
 
 ##Transformación
-`docker-compose run --rm pipeline sh -c "cd dbt && dbt run` 
+`docker-compose run --rm pipeline sh -c "cd dbt && dbt run"` 
 esto permite cargar el dbt y hacer un dbt run para este pipeline
 
 
