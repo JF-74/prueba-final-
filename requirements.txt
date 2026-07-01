@@ -10,3 +10,4 @@ plotly==5.22.0
 dash==2.17.1
 python-dotenv==1.0.1
 griffe
+dash-bootstrap-components
